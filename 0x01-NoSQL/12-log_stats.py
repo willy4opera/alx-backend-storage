@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-'''Task Top students module.
+'''Task  Log stats .
 '''
 from pymongo import MongoClient
 
