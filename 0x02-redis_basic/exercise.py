@@ -7,6 +7,7 @@ import redis
 from functools import wraps
 from typing import Any, Callable, Union
 
+
 def call_history(method: Callable) -> Callable:
     '''Monitors the call details of a method in a Cache class.
     '''
@@ -24,6 +25,7 @@ def call_history(method: Callable) -> Callable:
             self._redis.rpush(output_ky, ch_output)
         return ch_output
     return invoker
+
 
 def replay(fn: Callable) -> None:
     '''Show the call history of a Cache class' methods.
@@ -62,9 +64,11 @@ def count_calls(method: Callable) -> Callable:
         return method(self, *args, **kwargs)
     return invoker
 
+
 class Cache:
     '''The represention of object in data storage in a Redis.
     '''
+
     def __init__(self) -> None:
         '''Initializes Cache instance.
         '''
@@ -84,7 +88,7 @@ class Cache:
             self,
             key: str,
             fn: Callable = None,
-            ) -> Union[str, bytes, int, float]:
+    ) -> Union[str, bytes, int, float]:
         '''Fetches a value from the Redis data storage.
         '''
         data = self._redis.get(key)
@@ -99,4 +103,3 @@ class Cache:
         '''Fetches an integer value from a Redis data storage.
         '''
         return self.get(key, lambda x: int(x))
-    
